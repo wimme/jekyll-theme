@@ -1,0 +1,33 @@
+---
+layout: base
+---
+<article itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="hero">
+    <div class="hero-image delayed-bgimage-load" data-bgsrc="{{ page.image }}"></div>
+    <div class="hero-content">
+      <div class="hero-meta">
+        {%- if page.categories -%}
+          <span class="post-category">
+            {%- for category_path in page.categories -%}
+              {%- assign categories = category_path | split: '/' -%}
+              {%- for category in categories -%}
+                <a href="{{ site.baseurl }}/category/{%- for c in categories limit: forloop.index -%}{{ c | slugify }}/{%- endfor -%}">{{category}}</a>
+              {%- endfor -%}
+            {%- endfor -%}
+          </span>
+        {%- endif -%}
+        <span class="post-time" itemprop="datePublished" content="{{ page.date | date: date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</span>
+      </div>
+      <h1 class="hero-title" itemprop="name">{{ page.title | escape }}</h1>
+    </div>
+  </div>
+  <div class="news-item hentry clear">
+    <div class="news-content" itemprop="articleBody">
+      {{ content }}
+    </div>
+    <div class="news-footer">
+
+    </div>
+  </div>
+  {%- include postnavigation.html -%}
+</article>

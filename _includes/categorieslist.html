@@ -1,0 +1,14 @@
+<ul class="cat-item">
+  {%- for pair in include.subcategories -%}
+    {%- assign key = pair[0] -%}
+    {%- assign data = pair[1] -%}
+    <li>
+      {%- assign slug = key | slugify -%}
+      <a href="{{ site.baseurl }}/category/{{ include.parent }}/{{ slug }}/">{{ key }}</a> ({{ data.posts }})
+      {%- if data.subcategories -%}
+        {%- assign parent = include.parent | append: '/' | append: slug -%}
+        {%- include categorieslist.html subcategories=data.subcategories parent=parent -%}
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

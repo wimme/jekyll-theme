@@ -1,0 +1,35 @@
+#loader {
+	z-index: 999;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 0.2rem;
+	background-color: #fff;
+}
+
+#loader.hidden {
+	visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 600ms, opacity 600ms linear;
+}
+
+#spinner {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 50%;
+	background-color: #bcbcbc;
+	-webkit-animation: progressbar 2.0s infinite ease-in-out;
+	animation: progressbar 2.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes progressbar {
+	0% { left: -30%; }
+	100% { left: 100%; }
+}
+
+@keyframes progressbar {
+	0% { left: -30%; }
+	100% { left: 100%; }
+}

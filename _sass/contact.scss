@@ -1,0 +1,62 @@
+.contact-page .hidden {
+    display: none;
+}
+
+.contact-form-success,
+.contact-form-error,
+.contact-form label.error {
+	color: #bcbcbc;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.contact-form-author,
+.contact-form-email,
+.contact-form-phone,
+.contact-form-message {
+	margin-bottom: 20px;
+}
+
+.contact-form-author,
+.contact-form-email,
+.contact-form-phone {
+	float: left;
+	width: 33.33%;
+}
+
+.contact-form-author,
+.contact-form-phone {
+	padding-right: 20px;
+}
+
+.contact-form-message {
+	clear: both;
+	margin-bottom: 20px;
+}
+
+.contact-form label {
+	display: block;
+}
+
+.contact-form label.error {
+	margin-top: 5px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"] {
+	width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+
+	.contact-form-author,
+	.contact-form-email,
+	.contact-form-phone {
+		float: none;
+		width: 100%;
+		padding-right: 0;
+	}
+
+}

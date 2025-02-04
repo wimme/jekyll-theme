@@ -1,0 +1,60 @@
+{%- assign categories = page.categories | split: '/' -%}
+{%- assign next_post = nil -%}
+{%- assign previous_post = nil -%}
+
+{%- assign categories_count = categories.size -%}
+{%- for level in (0..categories_count) reversed -%}
+  {%- assign current_category = categories | slice: 0, level | join: '/' -%}
+  {%- for post in site.posts -%}
+    {% unless post.url == page.url %}
+      {%- for category in post.categories -%}
+        {%- assign category_parts = category | split: '/' -%}
+        {%- assign starts_with = true -%}
+        {%- assign count = current_category.size | minus: 1 -%}
+        {%- for i in (0..count) -%}
+          {%- if category_parts[i] != current_category[i] -%}
+            {%- assign starts_with = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if starts_with -%}
+          {%- if post.date > page.date and (next_post == nil or post.date < next_post.date) -%}
+            {%- assign next_post = post -%}
+            {%- break -%}
+          {%- endif -%}
+          {%- if post.date < page.date and (previous_post == nil or post.date > previous_post.date) -%}
+            {%- assign previous_post = post -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if next_post and previous_post -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor- %}
+  {%- if next_post and previous_post -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<nav class="post-navigation" role="navigation">
+  {% if previous_post %}
+  <div class="previous-post">
+    <div class="post-navigation-thumbnail" style="background-image:url('{{ previous_post.image }}')"></div>
+    <div class="post-navigation-header">
+      <div class="post-navigation-subtitle">Vorige post</div>
+      <h3 class="post-navigation-title"><a href="{{ previous_post.url | relative_url }}" rel="prev">{{ previous_post.title | escape }}</a></h3>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if next_post %}
+  <div class="next-post">
+    <div class="post-navigation-thumbnail" style="background-image:url('{{ next_post.image }}')"></div>
+    <div class="post-navigation-header">
+      <div class="post-navigation-subtitle">Volgende post</div>
+      <h3 class="post-navigation-title"><a href="{{ next_post.url | relative_url }}" rel="next">{{ next_post.title | escape }}</a></h3>
+    </div>
+  </div>
+  {% endif %}
+</nav>

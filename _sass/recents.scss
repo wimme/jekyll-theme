@@ -1,0 +1,18 @@
+.widget_recent_entries li {
+	margin-bottom: 10px;
+}
+
+.widget_recent_entries li:last-child {
+	margin-bottom: 0;
+}
+
+.widget_recent_entries {
+	color: #bcbcbc;
+}
+
+.widget_recent_entries .post-date {
+	display: block;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+}

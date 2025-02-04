@@ -1,0 +1,113 @@
+.post-navigation {
+    overflow: hidden;
+    margin-top: 90px;
+    background-color: #fbfbfb;
+    color: #fff;
+}
+
+.post-navigation a {
+    color: #fff;
+}
+
+.previous-post {
+    overflow: hidden;
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 300px;
+    background-color: #222;
+}
+
+.next-post {
+    overflow: hidden;
+    position: relative;
+    float: right;
+    width: -webkit-calc(50% - 1px);
+    width: calc(50% - 1px);
+    height: 300px;
+    margin-left: 1px;
+    background-color: #222;
+}
+
+.post-navigation-thumbnail {
+    opacity: .8;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    -webkit-transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.previous-post:hover .post-navigation-thumbnail,
+.next-post:hover .post-navigation-thumbnail {
+    opacity: .5;
+}
+
+.post-navigation-header {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.previous-post .post-navigation-header {
+    left: 90px;
+    right: 45px;
+    text-align: right;
+}
+
+.next-post .post-navigation-header {
+    left: 45px;
+    right: 90px;
+}
+
+.post-navigation-subtitle {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.post-navigation-title {
+    margin-bottom: 0;
+    font-size: 32px;
+    line-height: 32px;
+}
+
+@media only screen and (max-width: 767px) {
+
+    .post-navigation {
+        margin-top: 60px;
+    }
+
+    .previous-post {
+        float: none;
+        width: 100%;
+        height: 300px;
+        margin-bottom: 1px;
+    }
+
+    .next-post {
+        float: none;
+        width: 100%;
+        height: 300px;
+        margin-left: 0;
+    }
+
+    .previous-post .post-navigation-header {
+        left: 30px;
+        right: 30px;
+        text-align: left;
+    }
+
+    .next-post .post-navigation-header {
+        left: 30px;
+        right: 30px;
+    }
+
+}

@@ -1,0 +1,19 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {%- seo -%}
+  <link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | relative_url }}" />
+  <link rel="preconnect" href="https://img.wimme.net" />
+  {%- feed_meta -%}
+  <link rel="stylesheet" type="text/css" href="{{ "/assets/styles/styles.css" | relative_url }}" />
+  <link rel="stylesheet" type="text/css" href="{{ "/assets/styles/fonts/genericons/genericons.css" | relative_url }}" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Sans%3A400italic%2C700italic%2C400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap" media="all" />
+  {%- if jekyll.environment == 'production' -%}
+    {%- if site.google_analytics -%}
+      {%- include google-analytics.html -%}
+    {%- endif -%}
+    {%- if site.matomo -%}
+      {%- include matomo.html -%}
+    {%- endif -%}
+  {%- endif -%}
+</head>

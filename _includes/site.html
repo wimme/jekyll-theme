@@ -1,0 +1,19 @@
+{%- include loader.html -%}
+
+{%- include sidebar.html -%}
+
+<div class="site-overlay"></div>
+
+<div class="site">
+  {%- include header.html -%}
+
+  <main class="site-main clear" role="main">
+    {{ content }}
+  </main>
+
+  {%- include footer.html -%}
+</div>
+
+{%- include popup.html -%}
+
+<script type="text/javascript" src="{{ "/assets/js/script.js" | relative_url }}"></script>

@@ -1,0 +1,29 @@
+.sidebar {
+	display: none;
+	overflow: auto;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 290px;
+	height: 100%;
+	padding: 30px;
+	background-color: #fff;
+	line-height: 22px;
+	-webkit-overflow-scrolling: touch;
+}
+
+.sidebar.toggled-on {
+	display: block;
+}
+
+.sidebar .menu-toggle {
+	display: none;
+	top: 30px;
+}
+
+@media only screen and (max-width: 479px) {
+	.sidebar .menu-toggle {
+		display: block;
+	}
+}

@@ -1,0 +1,24 @@
+.site-header {
+	position: relative;
+	padding: 30px;
+	background-color: #fff;
+}
+
+/* Logo ------------------------------*/
+
+.site-logo {
+	float: left;
+}
+
+.logo-text {
+	color: #505050;
+	font-size: 24px;
+	font-weight: 700;
+}
+
+/* Menu toggle -----------------------*/
+
+.site-header .menu-toggle {
+	top: 50%;
+	margin-top: -10px;
+}

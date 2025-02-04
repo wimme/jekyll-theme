@@ -1,0 +1,6 @@
+<figure style="width: 900px" class="image">
+    <div class="delayed-image-load" data-src="{{ include.image.src }}" data-alt="{{ include.image.caption | escape }}"></div>
+    {%- if include.image.caption -%}
+      <figcaption>{{ include.image.caption | escape }}</figcaption>
+    {%- endif -%}
+</figure>

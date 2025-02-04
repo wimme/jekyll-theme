@@ -1,0 +1,16 @@
+---
+layout: base
+---
+<div class="page clear">
+  <div id="hero" class="hero">
+    <div class="hero-image delayed-bgimage-load" data-bgsrc="{{ page.image }}"></div>
+    <div class="hero-content"><h1 class="hero-title">{{ page.title | escape }}</h1></div>
+  </div>
+  <div class="page-content">
+    <article class="page hentry">
+        <div class="post-content">
+          {{ content }}
+        </div>
+    </article>
+  </div>
+</div>

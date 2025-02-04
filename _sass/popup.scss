@@ -1,0 +1,122 @@
+.popup-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    overflow-y: scroll;
+    display: none;
+    z-index: 8010;
+    background: rgba(255, 255, 255, .95);
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.popup-open {
+	overflow: hidden !important;
+}
+
+.popup {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    outline: none;
+}
+
+.popup-outer {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.popup-inner {
+    display: inline-block;
+    margin: auto;
+    text-align: left;
+    width: auto;
+    max-width: 100%;
+    position: relative;
+}
+
+.popup-image {
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    display: block;
+}
+
+.popup-nav {
+    z-index: 8040;
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 40%;
+    color: #505050;
+}
+
+.popup-nav span {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    background-color: rgba(255, 255, 255, .95);
+    line-height: 40px;
+    text-align: center;
+    -webkit-transition-duration: .2s;
+    transition-duration: .2s;
+}
+
+.popup-next:hover span,
+.popup-prev:hover span {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px);
+}
+
+.popup-prev {
+    left: 0;
+}
+
+.popup-prev span {
+    left: 10px;
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+}
+
+.popup-prev span:before {
+    font-family: Genericons;
+    content: "\f430";
+}
+
+.popup-next {
+    right: 0;
+}
+
+.popup-next span {
+    right: 10px;
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+}
+
+.popup-next span:before {
+    font-family: Genericons;
+    content: "\f429";
+}
+
+.popup-title {
+    display: block;
+    padding-top: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}

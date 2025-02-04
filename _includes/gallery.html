@@ -1,0 +1,12 @@
+<div class="gallery gallery-columns-{{ include.gallery.images.size }}">
+  {%- for image in include.gallery.images -%}
+    <figure class="gallery-item">
+      <div class="gallery-icon landscape">
+        <a href="{{ image.src }}" rel="gallery"><div class="delayed-image-load" data-src="{{ image.src }}" data-alt="{{ image.caption | escape }}"></div></a>
+      </div>
+      {%- if image.caption -%}
+        <figcaption class="gallery-caption">{{ image.caption | escape }}</figcaption>
+      {%- endif -%}
+    </figure>
+  {%- endfor -%}
+</div>

@@ -1,0 +1,31 @@
+.widget_search li {
+	margin-bottom: 10px;
+}
+
+.widget_search li:last-child {
+	margin-bottom: 0;
+}
+
+.widget_search {
+	color: #bcbcbc;
+}
+
+.widget_search .post-date {
+	display: block;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.screen-reader-text,
+.search-submit {
+	display: none;
+}
+
+.search-field {
+	width: 100%;
+}
+
+.widget_search ul {
+	margin: 24px 0 0 0;
+}

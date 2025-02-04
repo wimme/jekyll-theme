@@ -1,0 +1,19 @@
+<footer class="site-footer clear" role="contentinfo">
+  <ul class="social-icons">
+    {%- for social in site.wimme.social_links -%}
+      <li><a href="{{ social.user_url }}" {% if social.platform == 'Feed' %}rel="me"{% else %}rel="noopener noreferrer"{% endif %} target="_blank" title="{{ social.platform }}"><span class="genericon genericon-{{ social.platform | downcase }}"></span></a></li>
+    {%- endfor -%}
+  </ul>
+  <div class="site-copyright">
+    <p>&copy; {{ "now" | date: '%Y' }} {{ site.title | escape }}</p>
+    {%- assign page_paths = site.wimme.footer_pages | default: default_paths -%}
+    <ul>
+      {%- for path in page_paths -%}
+        {%- assign my_page = site.pages | where: "path", path | first -%}
+        {%- if my_page.title -%}
+          <li class="menu-item"><a href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a></li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</footer>
