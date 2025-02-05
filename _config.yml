@@ -43,7 +43,6 @@ wimme:
     - { platform: "GitHub", user_url: "https://github.com/jekyll" }
 
 # Build settings
-#theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
@@ -71,6 +70,8 @@ feed:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+exclude: [README.md script .gitignore]
 
 defaults:
   - scope:
