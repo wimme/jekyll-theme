@@ -234,7 +234,7 @@
             };
             disableForm(true);
             errorMessage.innerHTML = '';
-            window.fetch('https://wimme.net/system/json/', {
+            window.fetch('/system/json/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
