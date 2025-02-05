@@ -4,7 +4,7 @@
   {%- seo -%}
   <link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | relative_url }}" />
   <link rel="preconnect" href="https://img.wimme.net" />
-  <link rel="alternate" type="application/atom+xml" href="{{ site.wimme.feed_url | default: site.feed.path | default: '/feed.xml' | relative_url }}" title="{{ site.title | escape }}" />
+  <link rel="alternate" type="application/atom+xml" href="{{ site.wimme.feed_url | default: site.feed.path | default: '/feed.xml' | absolute_url }}" title="{{ site.title | escape }}" />
   <link rel="stylesheet" type="text/css" href="{{ "/assets/styles/styles.css" | relative_url }}" />
   <link rel="stylesheet" type="text/css" href="{{ "/assets/styles/fonts/genericons/genericons.css" | relative_url }}" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Sans%3A400italic%2C700italic%2C400%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap" media="all" />
