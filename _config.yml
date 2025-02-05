@@ -34,9 +34,9 @@ social: # jekyll-seo-tag
     - https://github.com/jekyll
 
 wimme:
-  header_pages:
+  header_nav:
     - index.md
-  footer_pages:
+  footer_nav:
   feed_url: "/feed.xml" # Allows using a feed publisher such as Feedburner
   social_links:
     - { platform: "Feed", user_url: "/feed.xml" }

@@ -6,7 +6,7 @@
   </ul>
   <div class="site-copyright">
     <p>&copy; {{ "now" | date: '%Y' }} {{ site.title | escape }}</p>
-    {%- assign page_paths = site.wimme.footer_pages | default: default_paths -%}
+    {%- assign page_paths = site.wimme.footer_nav | default: default_paths -%}
     <ul>
       {%- for path in page_paths -%}
         {%- assign my_page = site.pages | where: "path", path | first -%}

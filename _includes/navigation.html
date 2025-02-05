@@ -1,6 +1,6 @@
 <nav role="navigation">
   {%- assign default_paths = site.pages | map: "path" -%}
-  {%- assign page_paths = site.wimme.header_pages | default: default_paths -%}
+  {%- assign page_paths = site.wimme.header_nav | default: default_paths -%}
   <div class="menu-container">
     <ul class="menu">
       {%- for path in page_paths -%}
