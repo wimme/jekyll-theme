@@ -3,7 +3,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   {%- seo -%}
   <link rel="icon" type="image/x-icon" href="{{ "/favicon.ico" | relative_url }}" />
-  <link rel="preconnect" href="https://img.wimme.net" />
+  {%- if site.wimme.preconnect_urls -%}
+    {%- for preconnect_url in site.wimme.preconnect_urls -%}
+      <link rel="preconnect" href="{{ preconnect_url }}" />
+    {%- endfor -%}
+  {%- endif -%}
   <link rel="alternate" type="application/atom+xml" href="{{ site.wimme.feed_url | default: site.feed.path | default: '/feed.xml' | absolute_url }}" title="{{ site.title | escape }}" />
   <link rel="stylesheet" type="text/css" href="{{ "/assets/styles/styles.css" | relative_url }}" />
   <link rel="stylesheet" type="text/css" href="{{ "/assets/styles/fonts/genericons/genericons.css" | relative_url }}" />
