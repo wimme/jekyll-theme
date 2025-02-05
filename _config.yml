@@ -37,6 +37,7 @@ wimme:
   header_pages:
     - index.md
   footer_pages:
+  feed_url: "/feed.xml" # Allows using a feed publisher such as Feedburner
   social_links:
     - { platform: "Feed", user_url: "/feed.xml" }
     - { platform: "Twitter", user_url: "https://twitter.com/jekyllrb/" }
