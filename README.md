@@ -30,13 +30,25 @@ To enable Google Analytics, add the following lines to your Jekyll site:
 
 Google Analytics will only appear in production, i.e., `JEKYLL_ENV=production`
 
+### Enabling Matomo
+
+To enable Matomo, add the following lines to your Jekyll site:
+
+```yaml
+  matomo:
+    url: https://matomourl/
+    site_id: 1
+```
+
+Matomo will only appear in production, i.e., `JEKYLL_ENV=production`
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/wimme/jekyll-theme. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## Development
 
-Want to hack on this theme? Great! Not only is this repository a Jekyll theme, it's also a sample Jekyll site. You can clone it locally and run it see it in action.
+Want to hack on this theme? Great! Not only is this repository a Jekyll theme, it's also a sample Jekyll site. You can clone it locally and run it to see it in action.
 
 ```bash
 git clone https://github.com/wimme/jekyll-theme
