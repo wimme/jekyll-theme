@@ -248,7 +248,14 @@
                 },
                 body: JSON.stringify(apiData)
             })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errData => {
+                            throw new Error(errData.displayerror || 'An unknown error occurred');
+                        });
+                    }
+                    return response.json();
+                })
                 .then(success => {
                     if (success) {
                         contactForm.remove();
@@ -260,7 +267,7 @@
                     }
                 })
                 .catch(error => {
-                    errorMessage.innerText = error;
+                    errorMessage.innerText = error.message;
                 })
                 .finally(() => disableForm(false));
         });
