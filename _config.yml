@@ -35,6 +35,7 @@ social: # jekyll-seo-tag
 
 wimme:
   logo: ""
+  big_hero: false
   header_nav:
     - index.md
   footer_nav:

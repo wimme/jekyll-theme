@@ -12,12 +12,20 @@ nav a {
 	color: #505050;
 }
 
+.big-hero .site-header-navigation nav a {
+    color: #ffffff;
+}
+
 nav a:hover {
 	color: #bcbcbc;
 }
 
+.big-hero .site-header-navigation nav a:hover {
+    color: #e4c05c;
+}
+
 nav .current-menu-item > a {
-	color: #bcbcbc;
+	color: #bcbcbc !important;
 }
 
 .site-header-navigation nav .menu-item-has-children > a:after {
