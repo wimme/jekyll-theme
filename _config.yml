@@ -34,6 +34,7 @@ social: # jekyll-seo-tag
     - https://github.com/jekyll
 
 wimme:
+  logo: ""
   header_nav:
     - index.md
   footer_nav:

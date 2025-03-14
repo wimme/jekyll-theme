@@ -16,9 +16,29 @@
 	font-weight: 700;
 }
 
+.logo-image {
+	display: inline-block;
+	width: 400px;
+	height: 80px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: 50% 20%;
+	text-indent: -1000px;
+}
+
 /* Menu toggle -----------------------*/
 
 .site-header .menu-toggle {
 	top: 50%;
 	margin-top: -10px;
+}
+
+/* Responsive -----------------------*/
+
+@media only screen and (max-width: 980px) {
+
+	.logo-image {
+		max-width: 80%;
+	}
+
 }

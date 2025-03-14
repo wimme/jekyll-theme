@@ -1,6 +1,10 @@
 <header class="site-header clear" role="banner">
   <div class="site-logo">
-    <a class="logo-text" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    {%- if site.wimme.logo -%}
+      <a class="logo-image" href="{{ "/" | relative_url }}" style="background-image:url('{{ site.wimme.logo | relative_url }}')">{{ site.title | escape }}</a>
+    {%- else -%}
+      <a class="logo-text" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    {%- endif -%}
   </div>
 
   <div class="site-header-navigation">
