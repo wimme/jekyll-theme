@@ -2,17 +2,27 @@
 layout: base
 ---
 
-{%- if page.title -%}
+{%- if page.image -%}
+  <div class="page clear">
+    <div id="hero" class="hero hero-home">
+      <div class="hero-image delayed-bgimage-load" data-bgsrc="{{ page.image }}"></div>
+      <div class="hero-content">
+        <h3 class="hero-title">{{ page.subtitle | default: page.title | escape }}</h3>
+        <p>{{ page.description }}</p>
+      </div>
+    </div>
+  </div>
+{%- elsif page.title -%}
   <div class="hentry clear">
     <h2>{{ page.title }}</h2>
   </div>
 {%- endif -%}
 
-{% if site.paginate %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
+{%- if site.paginate -%}
+  {%- assign posts = paginator.posts -%}
+{%- else -%}
+  {%- assign posts = site.posts -%}
+{%- endif -%}
 
 {%- if posts.size > 0 -%}
   <ul class="news-feed">
@@ -36,9 +46,9 @@ layout: base
           <h3 class="title" itemprop="name"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
           {%- if site.show_excerpts -%}
             <div class="news-content" itemprop="articleBody">{{ post.excerpt }}</div>
-          {% endif %}
+          {%- endif -%}
         </div>
       </li>
     {%- endfor -%}
   </ul>
-{% endif %}
+{%- endif -%}

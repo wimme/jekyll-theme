@@ -420,6 +420,21 @@ h2 {
 	line-height: 60px;
 }
 
+.hero-home .hero-content {
+	width: auto;
+	left: 45px;
+	right: 45px;
+}
+
+.hero-home .hero-title {
+	font-size: 45px;
+	line-height: 45px;
+}
+
+.hero-home p {
+	margin: 20px 0;
+}
+
 /**
  * -----------------------------------------------------------------------------
  * Page content
@@ -520,6 +535,7 @@ h2 {
 	}
 
 	.hero-title,
+	.hero-home .hero-title,
 	.post-thumbnail-title,
 	.post-title {
 		font-size: 32px;
