@@ -4,16 +4,25 @@
 	background-color: #fff;
 }
 
-/* Logo ------------------------------*/
-
-.site-logo {
-	float: left;
+.big-hero .site-header {
+	position: absolute;
+	z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+	background-color: unset;
 }
+
+/* Logo ------------------------------*/
 
 .logo-text {
 	color: #505050;
 	font-size: 24px;
 	font-weight: 700;
+}
+
+.big-hero .logo-text {
+	color: #ffffff;
 }
 
 .logo-image {

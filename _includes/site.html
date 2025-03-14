@@ -4,7 +4,12 @@
 
 <div class="site-overlay"></div>
 
-<div class="site">
+{%- assign classes = "site" -%}
+{%- if site.wimme.big_hero -%}
+  {%- assign classes = classes | append: " big-hero" -%}
+{%- endif -%}
+<div class="{{ classes }}">
+
   {%- include header.html -%}
 
   <main class="site-main clear" role="main">
