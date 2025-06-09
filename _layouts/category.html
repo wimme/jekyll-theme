@@ -26,6 +26,7 @@ layout: base
           {%- for i in (0..count) -%}
             {%- if category_parts[i] != page_category_parts[i] -%}
               {%- assign starts_with = false -%}
+              {%- break -%}
             {%- endif -%}
           {%- endfor -%}
           {%- if starts_with -%}
