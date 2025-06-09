@@ -82,6 +82,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      permalink: /:categories/:title/
   - scope:
       path: ""
     values:
