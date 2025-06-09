@@ -1,4 +1,4 @@
-{%- assign categories = page.categories | split: '/' -%}
+{%- assign categories = page.categories | join: '--###--' | split: '--###--' | first | split: '/' -%}
 {%- assign next_post = nil -%}
 {%- assign previous_post = nil -%}
 {%- assign next_post_level = -1 -%}
@@ -6,7 +6,7 @@
 
 {%- assign categories_count = categories.size -%}
 {%- for level in (0..categories_count) reversed -%}
-  {%- assign current_category = categories | slice: 0, level | join: '/' -%}
+  {%- assign current_category = categories | slice: 0, level -%}
   {%- for post in site.posts -%}
     {% unless post.url == page.url %}
       {%- for category in post.categories -%}
