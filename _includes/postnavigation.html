@@ -42,7 +42,7 @@
 <nav class="post-navigation" role="navigation">
   {% if previous_post %}
   <div class="previous-post">
-    <div class="post-navigation-thumbnail" style="background-image:url('{{ previous_post.image }}')"></div>
+    <div class="post-navigation-thumbnail delayed-bgimage-load" data-bgsrc="{{ previous_post.image }}"></div>
     <div class="post-navigation-header">
       <div class="post-navigation-subtitle">Vorige post</div>
       <h3 class="post-navigation-title"><a href="{{ previous_post.url | relative_url }}" rel="prev">{{ previous_post.title | escape }}</a></h3>
@@ -52,7 +52,7 @@
 
   {% if next_post %}
   <div class="next-post">
-    <div class="post-navigation-thumbnail" style="background-image:url('{{ next_post.image }}')"></div>
+    <div class="post-navigation-thumbnail delayed-bgimage-load" data-bgsrc="{{ next_post.image }}"></div>
     <div class="post-navigation-header">
       <div class="post-navigation-subtitle">Volgende post</div>
       <h3 class="post-navigation-title"><a href="{{ next_post.url | relative_url }}" rel="next">{{ next_post.title | escape }}</a></h3>
