@@ -1,12 +1,12 @@
 <aside class="widget_categories">
-  <h6 class="widget-title">Categorieën</h6>
+  <h6 class="widget-title">{{ site.wimme.categories_title | default: 'Categories' }}</h6>
   <ul class="cat-item">
     {%- for pair in site.data.nested_categories -%}
       {%- assign key = pair[0] -%}
       {%- assign data = pair[1] -%}
       <li>
         {%- assign slug = key | slugify -%}
-        <a href="{{ site.baseurl }}/category/{{ slug }}/">{{ key }}</a> ({{ data.posts }})
+        <a href="{{ site.baseurl }}/{{ site.wimme.category_path | default: 'category' }}/{{ slug }}/">{{ key }}</a> ({{ data.posts }})
         {%- if data.subcategories -%}
           {%- include categorieslist.html subcategories=data.subcategories parent=slug -%}
         {%- endif -%}

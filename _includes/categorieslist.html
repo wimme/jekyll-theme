@@ -4,7 +4,7 @@
     {%- assign data = pair[1] -%}
     <li>
       {%- assign slug = key | slugify -%}
-      <a href="{{ site.baseurl }}/category/{{ include.parent }}/{{ slug }}/">{{ key }}</a> ({{ data.posts }})
+      <a href="{{ site.baseurl }}/{{ site.wimme.category_path | default: 'category' }}/{{ include.parent }}/{{ slug }}/">{{ key }}</a> ({{ data.posts }})
       {%- if data.subcategories -%}
         {%- assign parent = include.parent | append: '/' | append: slug -%}
         {%- include categorieslist.html subcategories=data.subcategories parent=parent -%}

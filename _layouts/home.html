@@ -36,7 +36,7 @@ layout: base
                 {%- for category_path in post.categories -%}
                   {%- assign categories = category_path | split: '/' -%}
                   {%- for category in categories -%}
-                    <a href="{{ site.baseurl }}/category/{%- for c in categories limit: forloop.index -%}{{ c | slugify }}/{%- endfor -%}">{{category}}</a>
+                    <a href="{{ site.baseurl }}/{{ site.wimme.category_path | default: 'category' }}/{%- for c in categories limit: forloop.index -%}{{ c | slugify }}/{%- endfor -%}">{{category}}</a>
                   {%- endfor -%}
                 {%- endfor -%}
               </span>
