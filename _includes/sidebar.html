@@ -6,12 +6,16 @@
   <div class="menu-toggle"><span></span></div>
 
   <div class="page-sidebar" role="complementary">
-    <div class="widget">
-      {%- include tags.html -%}
-    </div>
-    <div class="widget">
-      {%- include categories.html -%}
-    </div>
+    {%- if site.tags and site.tags.size > 0 -%}
+      <div class="widget">
+        {%- include tags.html -%}
+      </div>
+    {%- endif -%}
+    {%- if site.data.nested_categories and site.data.nested_categories.size > 0 -%}
+      <div class="widget">
+        {%- include categories.html -%}
+      </div>
+    {%- endif -%}
     <div class="widget">
       {%- include search.html -%}
     </div>

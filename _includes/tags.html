@@ -1,16 +1,14 @@
-{%- if site.tags and site.tags.size > 0 -%}
-  <aside class="widget_categories">
-    <h6 class="widget-title">{{ site.wimme.tags_title | default: 'Tags' }}</h6>
-    <ul class="cat-item">
-      {%- assign tags = site.tags | sort -%}
-      {%- for tag in tags -%}
-        {%- assign tag_name = tag[0] -%}
-        {%- assign posts = tag[1] -%}
-        <li>
-          {%- assign slug = tag_name | slugify -%}
-          <a href="{{ site.baseurl }}/{{ site.wimme.tag_path | default: 'tag' }}/{{ slug }}/">{{ tag_name }}</a> ({{ posts | size }})
-        </li>
-      {%- endfor -%}
-    </ul>
-  </aside>
-{%- endif -%}
+<aside class="widget_categories">
+  <h6 class="widget-title">{{ site.wimme.tags_title | default: 'Tags' }}</h6>
+  <ul class="cat-item">
+    {%- assign tags = site.tags | sort -%}
+    {%- for tag in tags -%}
+      {%- assign tag_name = tag[0] -%}
+      {%- assign posts = tag[1] -%}
+      <li>
+        {%- assign slug = tag_name | slugify -%}
+        <a href="{{ site.baseurl }}/{{ site.wimme.tag_path | default: 'tag' }}/{{ slug }}/">{{ tag_name }}</a> ({{ posts | size }})
+      </li>
+    {%- endfor -%}
+  </ul>
+</aside>
