@@ -42,6 +42,8 @@ wimme:
   feed_url: "/feed.xml" # Allows using a feed publisher such as Feedburner
   categories_title: 'Categories'
   category_path: 'category'
+  tags_title: 'Tags'
+  tag_path: 'tag'
   social_links:
     - { platform: "Feed", user_url: "/feed.xml" }
     - { platform: "Twitter", user_url: "https://twitter.com/jekyllrb/" }
@@ -93,3 +95,7 @@ defaults:
       path: "category"
     values:
       layout: "category"
+  - scope:
+      path: "tag"
+    values:
+      layout: "tag"

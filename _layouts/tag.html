@@ -1,0 +1,47 @@
+---
+layout: base
+---
+
+<div class="page clear">
+  <div id="hero" class="hero">
+    <div class="hero-image delayed-bgimage-load" data-bgsrc="{{ page.image }}"></div>
+    <div class="hero-content"><h1 class="hero-title">{{ page.title | escape }}</h1></div>
+  </div>
+  <div class="page-content">
+    <article class="page hentry">
+        <div class="post-content">
+          {{ content }}
+        </div>
+    </article>
+  </div>
+  <nav class="post-navigation hentry" role="navigation">
+    <ul class="news-feed">
+      {%- for post in site.posts -%}
+        {%- if post.tags contains page.tag -%}
+          <li class="news-item" itemscope itemtype="http://schema.org/Article">
+            <div class="news-thumbnail delayed-bgimage-load" data-bgsrc="{{ post.image }}"></div>
+            <div class="news-header">
+              <div class="news-meta">
+                {%- if post.categories -%}
+                  <span class="post-category">
+                    {%- for category_path in post.categories -%}
+                      {%- assign categories = category_path | split: '/' -%}
+                      {%- for category in categories -%}
+                        <a href="{{ site.baseurl }}/{{ site.wimme.category_path | default: 'category' }}/{%- for c in categories limit: forloop.index -%}{{ c | slugify }}/{%- endfor -%}">{{category}}</a>
+                      {%- endfor -%}
+                    {%- endfor -%}
+                  </span>
+                {%- endif -%}
+                <span class="post-time" itemprop="datePublished" content="{{ post.date | date: date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}</span>
+              </div>
+              <h3 class="title" itemprop="name"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+              {%- if site.show_excerpts -%}
+                <div class="news-content" itemprop="articleBody">{{ post.excerpt }}</div>
+              {%- endif -%}
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+</div>
