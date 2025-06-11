@@ -20,12 +20,12 @@
           {%- endif -%}
         {%- endfor -%}
         {%- if starts_with -%}
-          {%- if post.date > page.date and (next_post == nil or post.date < next_post.date) and level > next_post_level -%}
+          {%- if post.date > page.date and (next_post == nil or post.date < next_post.date) and level >= next_post_level -%}
             {%- assign next_post = post -%}
             {%- assign next_post_level = level -%}
             {%- break -%}
           {%- endif -%}
-          {%- if post.date < page.date and (previous_post == nil or post.date > previous_post.date) and level > previous_post_level -%}
+          {%- if post.date < page.date and (previous_post == nil or post.date > previous_post.date) and level >= previous_post_level -%}
             {%- assign previous_post = post -%}
             {%- assign previous_post_level = level -%}
             {%- break -%}
