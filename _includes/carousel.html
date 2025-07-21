@@ -1,0 +1,32 @@
+<div class="carousel-container">
+  <div class="carousel-track">
+    {%- for slide in include.slides -%}
+      <div class="carousel-slide">
+        {%- assign single_link = nil -%}
+        {%- if slide.links and slide.links.size == 1 -%}
+          {%- assign single_link = slide.links | first -%}
+        {%- endif -%}
+        {%- if single_link -%}
+          <a href="{{ single_link.href }}" draggable="false" class="carousel-link">
+        {%- endif -%}
+        {%- if slide.image -%}
+          <div class="carousel-image"><div class="delayed-image-load" data-src="{{ slide.image }}" data-alt=""></div></div>
+        {%- endif -%}
+        <h5>{{ slide.title | escape }}</h5>
+        {%- if slide.caption -%}
+          <p>{{ slide.caption | escape }}</p>
+        {%- endif -%}
+        {%- if slide.links and single_link == nil -%}
+          <ul>
+            {%- for link in slide.links -%}
+              <li><a href="{{ link.href | escape }}" draggable="false">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if single_link -%}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
