@@ -18,13 +18,14 @@
     const responsiveImages = () => {
         const cachedWidths = [300, 600, 800, 1000, 1200, 1500, 2000, 3000, 5000];
         const getResponsiveImageUrl = (url, width) => {
+            if (!url || !url.includes(location.hostname)) return url;
             for (const value of cachedWidths) {
                 if (value >= width) {
                     width = value;
                     break;
                 }
             }
-            return url ? `${url}?vw=${window.innerWidth}&dpr=${window.devicePixelRatio}&w=${width}` : '';
+            return `${url}?vw=${window.innerWidth}&dpr=${window.devicePixelRatio}&w=${width}`;
         };
         document.querySelectorAll('.delayed-image-load').forEach(placeholderEl => {
             const imageSrc = placeholderEl.getAttribute('data-src');
