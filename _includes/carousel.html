@@ -19,7 +19,7 @@
         {%- if slide.links and single_link == nil -%}
           <ul>
             {%- for link in slide.links -%}
-              <li><a href="{{ link.href | escape }}" draggable="false">{{ link.title | escape }}</a></li>
+              <li><a href="{{ link.href | escape }}" rel="nofollow" draggable="false">{{ link.title | escape }}</a></li>
             {%- endfor -%}
           </ul>
         {%- endif -%}

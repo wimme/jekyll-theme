@@ -1,0 +1,12 @@
+<blockquote>
+  <h3>{{ include.data.title }}</h3>
+  {%- for block in include.data.blocks -%}
+    <h4>{{ block.title | escape }}</h4>
+    {%- if block.caption -%}
+      <p>{{block.caption | escape }}</p>
+    {%- endif -%}
+    {%- if block.slides -%}
+      {%- include carousel.html slides=block.slides -%}
+    {%- endif -%}
+  {%- endfor -%}
+</blockquote>

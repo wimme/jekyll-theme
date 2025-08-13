@@ -25,9 +25,12 @@ layout: base
     <div class="news-content" itemprop="articleBody">
       {{ content }}
     </div>
-    <div class="news-footer">
-
-    </div>
+    {%- if page.footer -%}
+      <div class="news-footer">
+        {%- assign data = site.data[page.footer] -%}
+        {%- include postfooter.html data=data -%}
+      </div>
+    {%- endif -%}
   </div>
   {%- include postnavigation.html -%}
 </article>
