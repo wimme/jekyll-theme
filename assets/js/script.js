@@ -1,4 +1,17 @@
 ((window, document) => {
+    const loadScript = (src, callback) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = callback;
+        document.head.appendChild(script);
+    };
+    const loadStylesheet = (href) => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = href;
+        document.head.appendChild(link);
+    };
+
     const sidebar = () => {
         const toggleElements = document.querySelectorAll('.sidebar, .site, .site-overlay, .menu-toggle');
         document.querySelectorAll('.menu-toggle, .site-overlay').forEach(element => {
@@ -168,9 +181,7 @@
         let searchIndex = {};
         let lunrInstance = null;
         const initializeSearch = () => {
-            const lunrScript = document.createElement('script');
-            lunrScript.src = '/assets/js/lunr.min.js';
-            lunrScript.onload = () => {
+            loadScript('/assets/js/lunr.min.js', () => {
                 window.fetch('/search.json')
                     .then(response => response.json())
                     .then(data => {
@@ -184,8 +195,7 @@
                     })
                     .then(search)
                     .catch(error => console.error('Error loading search index: ', error));
-            };
-            document.body.appendChild(lunrScript);
+            });
             searchInitialized = true;
         };
         const search = () => {
@@ -374,12 +384,35 @@
         }
     };
 
+    const toc = () => {
+        const desktopMode = matchMedia('(min-width: 1353px)');
+        if (!desktopMode.matches) return;
+
+        const newsContent = document.querySelectorAll('.news-content');
+        if (!newsContent.length) return;
+
+        const initToc = () => {
+            tocbot.init({
+                tocSelector: '.js-toc',
+                contentSelector: '.news-content',
+                headingSelector: 'h2, h3, h4',
+                headingObjectCallback: (obj, element) => {
+                    obj.textContent = element.textContent.trim();
+                    return obj;
+                }
+            });
+        };
+        loadStylesheet('/assets/styles/tocbot.css');
+        loadScript('/assets/js/tocbot.min.js', initToc);
+    };
+
     document.addEventListener('DOMContentLoaded', evt => {
         sidebar();
         responsiveImages();
         search();
         carousel();
         contactForm();
+        toc();
         document.getElementById('loader').classList.add('hidden');
     });
 

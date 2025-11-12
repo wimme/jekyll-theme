@@ -44,6 +44,7 @@ wimme:
   category_path: 'category'
   tags_title: 'Tags'
   tag_path: 'tag'
+  toc_title: 'On this page'
   social_links:
     - { platform: "Feed", user_url: "/feed.xml" }
     - { platform: "Twitter", user_url: "https://twitter.com/jekyllrb/" }

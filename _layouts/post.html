@@ -21,16 +21,29 @@ layout: base
       <h1 class="hero-title" itemprop="name">{{ page.title | escape }}</h1>
     </div>
   </div>
-  <div class="news-item hentry clear">
-    <div class="news-content" itemprop="articleBody">
-      {{ content }}
-    </div>
-    {%- if page.footer -%}
-      <div class="news-footer">
-        {%- assign data = site.data[page.footer] -%}
-        {%- include postfooter.html data=data -%}
+  <div class="news-container">
+    <div class="news-item hentry clear">
+      <div class="news-content" itemprop="articleBody">
+        {{ content }}
       </div>
-    {%- endif -%}
+      {%- if page.footer -%}
+        <div class="news-footer">
+          {%- assign data = site.data[page.footer] -%}
+          {%- include postfooter.html data=data -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="news-divider"></div>
+    <div class="news-sidebar hentry">
+      <div class="news-sidebar-content">
+        <div class="widget">
+          <aside class="widget_toc">
+            <h6 class="widget-title">{{ site.wimme.toc_title | default: 'On this page' }}</h6>
+            <div class="js-toc"></div>
+          </aside>
+        </div>
+      </div>
+    </div>
   </div>
   {%- include postnavigation.html -%}
 </article>
