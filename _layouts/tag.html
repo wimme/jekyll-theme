@@ -15,14 +15,16 @@ layout: base
     </article>
   </div>
   {%- assign tag_markers = site.data.markers_by_tag[page.tag] -%}
-  {%- if tag_markers.size > 0 and site.wimme.mapbox.access_token-%}
+  {%- if tag_markers.size > 0 and site.wimme.mapbox.access_token -%}
     <div class="page-section hentry">
       <h3>{{ site.wimme.map_title | default: 'Map' | escape }} {{ page.title | downcase | escape }}</h3>
       {%- include map.html id='map-tag' markers=tag_markers -%}
     </div>
   {%- endif -%}
   <div class="page-section hentry">
-    <h3>{{ site.wimme.tag_title | default: 'Tag' | escape }} {{ page.title | downcase | escape }}</h3>
+    {%- if tag_markers.size > 0 and site.wimme.mapbox.access_token -%}
+      <h3>{{ site.wimme.tag_title | default: 'Tag' | escape }} {{ page.title | downcase | escape }}</h3>
+    {%- endif -%}
     <nav role="navigation">
       <ul class="news-feed">
         {%- for post in site.posts -%}

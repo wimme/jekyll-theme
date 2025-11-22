@@ -22,7 +22,9 @@ layout: base
     </div>
   {%- endif -%}
   <div class="page-section hentry">
-    <h3>{{ site.wimme.category_title | default: 'Category' | escape }} {{ page.category_name | split: '/' | last | escape }}</h3>
+    {%- if category_markers.size > 0 and site.wimme.mapbox.access_token -%}
+      <h3>{{ site.wimme.category_title | default: 'Category' | escape }} {{ page.category_name | split: '/' | last | escape }}</h3>
+    {%- endif -%}
     <nav role="navigation">
       <ul class="news-feed">
         {%- assign page_category_parts = page.category_name | split: '/' -%}
