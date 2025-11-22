@@ -25,6 +25,14 @@
 	line-height: 44px;
 }
 
+.news-toc {
+	max-height: 150px;
+	overflow-y: auto;
+}
+.news-toc :last-child {
+	margin-bottom: 0;
+}
+
 .news-footer {
 	margin-top: 30px;
 }

@@ -7,7 +7,7 @@
       {%- assign posts = tag[1] -%}
       <li>
         {%- assign slug = tag_name | slugify -%}
-        <a href="{{ site.baseurl }}/{{ site.wimme.tag_path | default: 'tag' }}/{{ slug }}/">{{ tag_name }}</a> ({{ posts | size }})
+        <a href="{{ site.baseurl }}/{{ site.wimme.tag_path | default: 'tag' }}/{{ slug }}/">{{ tag_name | escape }}</a> ({{ posts | size }})
       </li>
     {%- endfor -%}
   </ul>

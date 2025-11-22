@@ -385,17 +385,70 @@
     };
 
     const toc = () => {
-        const desktopMode = matchMedia('(min-width: 1353px)');
-        if (!desktopMode.matches) return;
+        const newsContent = document.querySelector('.news-content');
+        if (!newsContent) return;
 
-        const newsContent = document.querySelectorAll('.news-content');
-        if (!newsContent.length) return;
+        const mobileToc = document.querySelector('.news-toc');
+        if (!mobileToc) return;
+
+        const desktopMode = matchMedia('(min-width: 1353px)');
+        if (!desktopMode.matches) {
+            const createNestedToc = (headings) => {
+                const stack = [];
+                const root = document.createElement('ol');
+                let currentList = root;
+
+                headings.forEach(heading => {
+                    const level = parseInt(heading.tagName.substring(1)); // H1 = 1, H2 = 2, etc.
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = `#${heading.id}`;
+                    link.textContent = heading.textContent.trim();
+                    li.appendChild(link);
+
+                    // Find the correct nesting level
+                    while (stack.length > 0 && stack[stack.length - 1].level >= level) {
+                        stack.pop();
+                    }
+
+                    if (stack.length === 0) {
+                        // Top level
+                        currentList = root;
+                    } else {
+                        // Create or find nested list
+                        const parent = stack[stack.length - 1];
+                        if (!parent.subList) {
+                            parent.subList = document.createElement('ol');
+                            parent.element.appendChild(parent.subList);
+                        }
+                        currentList = parent.subList;
+                    }
+
+                    currentList.appendChild(li);
+                    stack.push({ level, element: li, subList: null });
+                });
+
+                return root;
+            };
+
+            const headings = Array.from(newsContent.children).filter(child =>
+                ['H3', 'H4', 'H5', 'H6'].includes(child.tagName)
+            );
+
+            if (headings.length > 0) {
+                const nestedToc = createNestedToc(headings);
+                mobileToc.appendChild(nestedToc);
+            }
+            return;
+        }
+
+        mobileToc.remove();
 
         const initToc = () => {
             tocbot.init({
                 tocSelector: '.js-toc',
                 contentSelector: '.news-content',
-                headingSelector: 'h2, h3, h4',
+                headingSelector: 'h3, h4, h5, h6',
                 headingObjectCallback: (obj, element) => {
                     obj.textContent = element.textContent.trim();
                     return obj;
