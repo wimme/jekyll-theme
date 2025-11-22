@@ -49,10 +49,10 @@ a:hover {
 
 blockquote,
 .news-toc {
-	margin: 0 0 30px 0;
+	width: calc(100% + 75px);
+    margin: 0 0 30px -30px;
 	padding: 30px;
 	background-color: #f6f6f6;
-	border-radius: 30px;
 }
 
 blockquote.quote {
@@ -394,6 +394,7 @@ h2 {
 
 .big-hero .hero-home {
 	height: 587px !important;
+	margin-bottom: 0;
 }
 
 .hero-image {
@@ -466,6 +467,35 @@ h2 {
 	margin: 0 auto;
 }
 
+.page-section {
+	margin-top: 60px;
+}
+
+.map {
+	width: 100%;
+	height: 400px;
+}
+.map .mapboxgl-marker {
+	cursor: pointer;
+}
+.map .mapboxgl-marker.highlighted {
+	z-index: 10;
+}
+.map .popup-content {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+.map .popup-content .popup-image {
+	width: 100%;
+	min-width: 120px;
+	height: 100px;
+	background-size: cover;
+	background-position: center;
+}
+
+
+
 /**
  * -----------------------------------------------------------------------------
  * Widgets
@@ -517,10 +547,7 @@ h2 {
 
 @media only screen and (max-width: 1130px) {
 
-	.hero-content {
-		width: 750px;
-	}
-
+	.hero-content,
 	.hentry {
 		width: 750px;
 	}
@@ -542,10 +569,7 @@ h2 {
 		line-height: 45px;
 	}
 
-	.hero-content {
-		width: 568px;
-	}
-
+	.hero-content,
 	.hentry {
 		width: 568px;
 	}
@@ -575,10 +599,7 @@ h2 {
 		height: 390px;
 	}
 
-	.hero-content {
-		width: 370px;
-	}
-
+	.hero-content,
 	.hentry {
 		width: 370px;
 	}
@@ -587,10 +608,7 @@ h2 {
 
 @media only screen and (max-width: 479px) {
 
-	.hero-content {
-		width: 260px;
-	}
-
+	.hero-content,
 	.hentry {
 		width: 260px;
 	}

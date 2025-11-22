@@ -1,0 +1,12 @@
+{%- if site.wimme.mapbox.access_token -%}
+  <script type="text/javascript">
+    window.mapboxAccessToken = '{{ site.wimme.mapbox.access_token }}';
+    window.mapComponents = window.mapComponents || {};
+    window.mapComponents['{{ include.id | escape }}'] = {
+      locale: '{{ site.locale }}',
+      lang: '{{ site.lang }}',
+      markers: {{ include.markers | jsonify }}
+    };
+  </script>
+  <div class="map" id="{{ include.id | escape }}"></div>
+{%- endif -%}

@@ -39,10 +39,18 @@ layout: base
       <div class="news-sidebar-content">
         <div class="widget">
           <aside class="widget_toc">
-            <h6 class="widget-title">{{ site.wimme.toc_title | default: 'On this page' }}</h6>
+            <h6 class="widget-title">{{ site.wimme.toc_title | default: 'Contents' | escape }}</h6>
             <div class="js-toc"></div>
           </aside>
         </div>
+        {%- if page.map and site.wimme.mapbox.access_token -%}
+          <div class="widget">
+            <aside class="widget_map">
+              <h6 class="widget-title">{{ site.wimme.map_title | default: 'Map' | escape }}</h6>
+              {%- include map.html id='news-sidebar-map' markers=page.map.markers -%}
+            </aside>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>

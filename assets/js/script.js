@@ -459,6 +459,102 @@
         loadScript('/assets/js/tocbot.min.js', initToc);
     };
 
+    const maps = () => {
+        if (!window.mapboxAccessToken) return;
+        if (!window.mapComponents) return;
+
+        const mapElements = document.querySelectorAll('.map');
+        if (!mapElements.length) return;
+
+        const setMarkerColor = (marker, color) => {
+            const markerEl = marker.getElement();
+            const svg = markerEl.getElementsByTagName("svg")[0];
+            const path = svg.getElementsByTagName("path")[0];
+            path.setAttribute("fill", color);
+        };
+        const highlightMarker = (element, marker) => {
+            element.addEventListener('mouseenter', evt => {
+                setMarkerColor(marker, "#e4c05c");
+                marker.addClassName('highlighted');
+            });
+            element.addEventListener('mouseleave', evt => {
+                setMarkerColor(marker, "#3FB1CE");
+                marker.removeClassName('highlighted');
+            });
+        };
+        const initMaps = () => {
+            mapboxgl.accessToken = window.mapboxAccessToken;
+            mapElements.forEach(mapElement => {
+                const mapConfig = window.mapComponents[mapElement.id];
+                if (!mapConfig) return;
+                const bounds = new mapboxgl.LngLatBounds();
+                mapConfig.markers.forEach(markerConfig => {
+                    bounds.extend([markerConfig.position[1], markerConfig.position[0]]);
+                });
+                const map = new mapboxgl.Map({
+                    container: mapElement,
+                    locale: mapConfig.locale || null,
+                    language: mapConfig.lang || null,
+                    style: 'mapbox://styles/mapbox/standard',
+                    projection: 'mercator',
+                    center: mapConfig.center,
+                    zoom: mapConfig.zoom || 5,
+                    bounds: bounds.isEmpty() ? undefined : bounds,
+                    fitBoundsOptions: { padding: 50, maxZoom: 10 }
+                });
+                if (mapConfig.markers) {
+                    const markersOnHover = {};
+                    mapConfig.markers.forEach(markerConfig => {
+                        const url = (markerConfig.url || '') + (markerConfig.anchor || '');
+                        const image = markerConfig.image ? `<div class="popup-image" style="background-image:url(${markerConfig.image})"></div>` : '';
+                        const popup = new mapboxgl.Popup({ offset: 25 })
+                            .setHTML(`<div class="popup-content">${image}<div class="popup-title"><a href="${url}">${markerConfig.title}</a></div></div>`);
+                        const marker = new mapboxgl.Marker()
+                            .setLngLat([markerConfig.position[1], markerConfig.position[0]])
+                            .setPopup(popup)
+                            .addTo(map);
+                        if (markerConfig.anchor && (!markerConfig.url || markerConfig.url === location.pathname)) {
+                            markersOnHover[markerConfig.anchor] = marker;
+                        }
+                    });
+                    for (const anchor in markersOnHover) {
+                        const marker = markersOnHover[anchor];
+                        const anchorElement = document.getElementById(anchor.substring(1));
+                        if (!anchorElement) continue;
+                        let element = anchorElement;
+                        while (element) {
+                            highlightMarker(element, marker);
+                            element = element.nextSibling;
+                            if (!element || anchorElement.tagName === element.tagName || markersOnHover[`#${element.id}`]) {
+                                break;
+                            }
+                            switch (anchorElement.tagName) {
+                                case 'H2':
+                                    if (element.tagName === 'H1') element = null;
+                                    break;
+                                case 'H3':
+                                    if (element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                    break;
+                                case 'H4':
+                                    if (element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                    break;
+                                case 'H5':
+                                    if (element.tagName === 'H4' || element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                    break;
+                                case 'H6':
+                                    if (element.tagName === 'H5' || element.tagName === 'H4' || element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                    break;
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        loadStylesheet('https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css');
+        loadScript('https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.js', initMaps);
+    };
+
     document.addEventListener('DOMContentLoaded', evt => {
         sidebar();
         responsiveImages();
@@ -466,6 +562,7 @@
         carousel();
         contactForm();
         toc();
+        maps();
         document.getElementById('loader').classList.add('hidden');
     });
 

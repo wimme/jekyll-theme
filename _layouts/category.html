@@ -14,51 +14,61 @@ layout: base
         </div>
     </article>
   </div>
-  <nav class="post-navigation hentry" role="navigation">
-    <ul class="news-feed">
-      {%- assign page_category_parts = page.category_name | split: '/' -%}
-      {%- for post in site.posts -%}
-        {%- assign include_post = false -%}
-        {%- for category in post.categories -%}
-          {%- assign category_parts = category | split: '/' -%}
-          {%- assign starts_with = true -%}
-          {%- assign count = page_category_parts.size | minus: 1 -%}
-          {%- for i in (0..count) -%}
-            {%- if category_parts[i] != page_category_parts[i] -%}
-              {%- assign starts_with = false -%}
+  {%- assign category_markers = site.data.markers_by_category[page.category_name] -%}
+  {%- if category_markers.size > 0 and site.wimme.mapbox.access_token -%}
+    <div class="page-section hentry">
+      <h3>{{ site.wimme.map_title | default: 'Map' | escape }} {{ page.category_name | split: '/' | last | escape }}</h3>
+      {%- include map.html id='map-category' markers=category_markers -%}
+    </div>
+  {%- endif -%}
+  <div class="page-section hentry">
+    <h3>{{ site.wimme.category_title | default: 'Category' | escape }} {{ page.category_name | split: '/' | last | escape }}</h3>
+    <nav role="navigation">
+      <ul class="news-feed">
+        {%- assign page_category_parts = page.category_name | split: '/' -%}
+        {%- for post in site.posts -%}
+          {%- assign include_post = false -%}
+          {%- for category in post.categories -%}
+            {%- assign category_parts = category | split: '/' -%}
+            {%- assign starts_with = true -%}
+            {%- assign count = page_category_parts.size | minus: 1 -%}
+            {%- for i in (0..count) -%}
+              {%- if category_parts[i] != page_category_parts[i] -%}
+                {%- assign starts_with = false -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if starts_with -%}
+              {%- assign include_post = true -%}
               {%- break -%}
             {%- endif -%}
           {%- endfor -%}
-          {%- if starts_with -%}
-            {%- assign include_post = true -%}
-            {%- break -%}
+          {%- if include_post -%}
+            <li itemscope itemtype="http://schema.org/Article">
+              <div class="news-thumbnail delayed-bgimage-load" data-bgsrc="{{ post.image }}"></div>
+              <div class="news-header">
+                <div class="news-meta">
+                  {%- if post.categories -%}
+                    <span class="post-category">
+                      {%- for category_path in post.categories -%}
+                        {%- assign categories = category_path | split: '/' -%}
+                        {%- for category in categories -%}
+                          <a href="{{ site.baseurl }}/{{ site.wimme.category_path | default: 'category' }}/{%- for c in categories limit: forloop.index -%}{{ c | slugify }}/{%- endfor -%}">{{category}}</a>
+                        {%- endfor -%}
+                      {%- endfor -%}
+                    </span>
+                  {%- endif -%}
+                  <span class="post-time" itemprop="datePublished" content="{{ post.date | date: date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}</span>
+                </div>
+                <h3 class="title" itemprop="name"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+                {%- if site.show_excerpts -%}
+                  <div class="news-content" itemprop="articleBody">{{ post.excerpt }}</div>
+                {%- endif -%}
+              </div>
+            </li>
           {%- endif -%}
         {%- endfor -%}
-        {%- if include_post -%}
-          <li class="news-item" itemscope itemtype="http://schema.org/Article">
-            <div class="news-thumbnail delayed-bgimage-load" data-bgsrc="{{ post.image }}"></div>
-            <div class="news-header">
-              <div class="news-meta">
-                {%- if post.categories -%}
-                  <span class="post-category">
-                    {%- for category_path in post.categories -%}
-                      {%- assign categories = category_path | split: '/' -%}
-                      {%- for category in categories -%}
-                        <a href="{{ site.baseurl }}/{{ site.wimme.category_path | default: 'category' }}/{%- for c in categories limit: forloop.index -%}{{ c | slugify }}/{%- endfor -%}">{{category}}</a>
-                      {%- endfor -%}
-                    {%- endfor -%}
-                  </span>
-                {%- endif -%}
-                <span class="post-time" itemprop="datePublished" content="{{ post.date | date: date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}</span>
-              </div>
-              <h3 class="title" itemprop="name"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
-              {%- if site.show_excerpts -%}
-                <div class="news-content" itemprop="articleBody">{{ post.excerpt }}</div>
-              {%- endif -%}
-            </div>
-          </li>
-        {%- endif -%}
-      {%- endfor -%}
-    </ul>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 </div>

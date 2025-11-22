@@ -7,7 +7,7 @@
           {%- assign single_link = slide.links | first -%}
         {%- endif -%}
         {%- if single_link -%}
-          <a href="{{ single_link.href }}" draggable="false" class="carousel-link">
+          <a href="{{ single_link.href | escape }}" draggable="false" class="carousel-link">
         {%- endif -%}
         {%- if slide.image -%}
           <div class="carousel-image"><div class="delayed-image-load" data-src="{{ slide.image }}" data-alt=""></div></div>

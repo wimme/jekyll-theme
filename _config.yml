@@ -41,14 +41,19 @@ wimme:
   footer_nav:
   feed_url: "/feed.xml" # Allows using a feed publisher such as Feedburner
   categories_title: 'Categories'
+  category_title: 'Category'
   category_path: 'category'
   tags_title: 'Tags'
+  tag_title: 'Tag'
   tag_path: 'tag'
   toc_title: 'On this page'
+  map_title: 'Map'
   social_links:
     - { platform: "Feed", user_url: "/feed.xml" }
     - { platform: "Twitter", user_url: "https://twitter.com/jekyllrb/" }
     - { platform: "GitHub", user_url: "https://github.com/jekyll" }
+  mapbox:
+    access_token: ''
 
 # Build settings
 plugins:

@@ -1,5 +1,5 @@
 <aside class="widget_categories">
-  <h6 class="widget-title">{{ site.wimme.categories_title | default: 'Categories' }}</h6>
+  <h6 class="widget-title">{{ site.wimme.categories_title | default: 'Categories' | escape }}</h6>
   <ul class="cat-item">
     {%- for pair in site.data.nested_categories -%}
       {%- assign key = pair[0] -%}

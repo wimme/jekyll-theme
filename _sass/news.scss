@@ -2,7 +2,7 @@
 	position: absolute;
 	top: 50%;
 	left: 45px;
-	margin-right: 90px;
+	right: 45px;
 	color: #fff;
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
@@ -37,7 +37,7 @@
 	margin-top: 30px;
 }
 
-.post-category {
+.hero-meta .post-category {
 	margin-right: 17px;
 }
 
@@ -116,6 +116,11 @@
 }
 
 @media only screen and (max-width: 767px) {
+	.news-header {
+		left: 35px;
+		right: 35px;
+	}
+
 	.news-header .title {
 		font-size: 32px;
 		line-height: 32px;
@@ -165,5 +170,9 @@
 
 	.widget_toc {
 		display: block;
+	}
+
+	.news-sidebar .map {
+		height: 300px;
 	}
 }
