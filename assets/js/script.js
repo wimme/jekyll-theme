@@ -511,6 +511,7 @@
                     else {
                         layerConfig.markers = [];
                     }
+                    layerConfig.markersUri = null;
                 }
             }
             return visibleLayers;
