@@ -5,7 +5,8 @@
     window.mapComponents['{{ include.id | escape }}'] = {
       locale: '{{ site.locale }}',
       lang: '{{ site.lang }}',
-      markers: {{ include.markers | jsonify }}
+      markers: {{ include.markers | jsonify }},
+      layers: {{ include.layers | jsonify }}
     };
   </script>
   <div class="map" id="{{ include.id | escape }}"></div>

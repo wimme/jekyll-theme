@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /maps/category-page-markers.json
+---
+{{ site.data.category_page_markers | jsonify }}

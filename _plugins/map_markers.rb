@@ -8,10 +8,32 @@ module Jekyll
         post.data['map']['markers'] = process_markers(post.data['map']['markers'], post.url)
       end
 
+      # Process all category/tag pages and add URL to their markers
+      site.pages.each do |page|
+        next unless page.data['map'] && page.data['map']['markers']
+
+        page.data['map']['markers'] = process_markers(page.data['map']['markers'], page.url)
+      end
+
       # Generate marker collections for different views
       site.data['all_markers'] = collect_all_markers(site.posts.docs)
       site.data['markers_by_category'] = collect_markers_by_category(site.posts.docs)
       site.data['markers_by_tag'] = collect_markers_by_tag(site.posts.docs)
+      site.data['category_page_markers'] = collect_category_page_markers(site.pages)
+
+      # Map config
+      site.data['map_layers'] = [
+        {
+          'minZoom' => 0,
+          'maxZoom' => 5,
+          'markers' => '/maps/category-page-markers.json'
+        },
+        {
+          'minZoom' => 5,
+          'maxZoom' => 22,
+          'markers' => '/maps/all-markers.json'
+        }
+      ]
     end
 
     private
@@ -94,6 +116,20 @@ module Jekyll
       end
 
       markers_by_tag
+    end
+
+    # Collect markers from category pages only
+    def collect_category_page_markers(pages)
+      category_markers = []
+
+      pages.each do |page|
+        next unless page.data['map'] && page.data['map']['markers']
+        next unless page.data['category_name']
+
+        category_markers.concat(page.data['map']['markers'])
+      end
+
+      category_markers
     end
   end
 end

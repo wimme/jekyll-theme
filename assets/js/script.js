@@ -466,31 +466,90 @@
         const mapElements = document.querySelectorAll('.map');
         if (!mapElements.length) return;
 
-        const setMarkerColor = (marker, color) => {
-            const markerEl = marker.getElement();
-            const svg = markerEl.getElementsByTagName("svg")[0];
-            const path = svg.getElementsByTagName("path")[0];
-            path.setAttribute("fill", color);
+        const createMarkerElement = (icon) => {
+            icon = icon || 'star';
+            const div = document.createElement('div');
+            div.innerHTML = `<div class="map-marker-shadow"></div>
+              <div class="map-marker">
+                <div class="map-marker-icon map-marker-icon--${icon}">
+                  <svg aria-hidden="true">
+                    <use href="/assets/images/icons.sprite.svg#${icon}"></use>
+                  </svg>
+                </div>
+              </div>`;
+            return div;
         };
         const highlightMarker = (element, marker) => {
             element.addEventListener('mouseenter', evt => {
-                setMarkerColor(marker, "#e4c05c");
                 marker.addClassName('highlighted');
             });
             element.addEventListener('mouseleave', evt => {
-                setMarkerColor(marker, "#3FB1CE");
                 marker.removeClassName('highlighted');
             });
         };
+        const getVisibleLayers = (mapConfig, zoom) => {
+            const visibleLayers = [];
+            if (mapConfig.layers) {
+                for (const layerConfig of mapConfig.layers) {
+                    if (layerConfig.minZoom <= zoom && layerConfig.maxZoom > zoom) {
+                        visibleLayers.push(layerConfig);
+                    }
+                }
+            }
+            if (mapConfig.markers) {
+                visibleLayers.push({ markers: mapConfig.markers });
+            }
+            for (const layerConfig of visibleLayers) {
+                if (typeof layerConfig.markers === 'string') {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', layerConfig.markers, false);
+                    xhr.send(null);
+                    if (xhr.status === 200) {
+                        const markersData = JSON.parse(xhr.responseText);
+                        layerConfig.markers = markersData;
+                    }
+                }
+            }
+            return visibleLayers;
+        };
+        const addLayerToMap = (map, layerConfig) => {
+            for (const markerConfig of layerConfig.markers) {
+                if (markerConfig.$marker) {
+                    markerConfig.$marker.addTo(map);
+                    continue;
+                }
+                const url = (markerConfig.url || '') + (markerConfig.anchor || '');
+                const image = markerConfig.image ? `<div class="popup-image" style="background-image:url(${markerConfig.image})"></div>` : '';
+                markerConfig.$popup = new mapboxgl.Popup({ offset: 25 })
+                    .setHTML(`<div class="popup-content">${image}<div class="popup-title"><a href="${url}">${markerConfig.title}</a></div></div>`);
+                markerConfig.$marker = new mapboxgl.Marker(createMarkerElement(markerConfig.icon), { anchor: 'bottom' })
+                    .setLngLat([markerConfig.position[1], markerConfig.position[0]])
+                    .setPopup(markerConfig.$popup)
+                    .addTo(map);
+            }
+        };
+        const removeLayerFromMap = (map, layerConfig) => {
+            for (const markerConfig of layerConfig.markers) {
+                if (markerConfig.$marker) {
+                    markerConfig.$marker.remove();
+                }
+            }
+        };
         const initMaps = () => {
             mapboxgl.accessToken = window.mapboxAccessToken;
-            mapElements.forEach(mapElement => {
+            for (const mapElement of mapElements) {
                 const mapConfig = window.mapComponents[mapElement.id];
-                if (!mapConfig) return;
+                if (!mapConfig) continue;
                 const bounds = new mapboxgl.LngLatBounds();
-                mapConfig.markers.forEach(markerConfig => {
-                    bounds.extend([markerConfig.position[1], markerConfig.position[0]]);
-                });
+                const initialZoom = mapConfig.zoom || 4;
+                const visibleLayers = getVisibleLayers(mapConfig, initialZoom);
+                for (const layerConfig of visibleLayers) {
+                    if (layerConfig.markers) {
+                        for (const markerConfig of layerConfig.markers) {
+                            bounds.extend([markerConfig.position[1], markerConfig.position[0]]);
+                        }
+                    }
+                }
                 const map = new mapboxgl.Map({
                     container: mapElement,
                     locale: mapConfig.locale || null,
@@ -498,57 +557,69 @@
                     style: 'mapbox://styles/mapbox/standard',
                     projection: 'mercator',
                     center: mapConfig.center,
-                    zoom: mapConfig.zoom || 5,
+                    zoom: initialZoom,
                     bounds: bounds.isEmpty() ? undefined : bounds,
                     fitBoundsOptions: { padding: 50, maxZoom: 10 }
                 });
-                if (mapConfig.markers) {
-                    const markersOnHover = {};
-                    mapConfig.markers.forEach(markerConfig => {
-                        const url = (markerConfig.url || '') + (markerConfig.anchor || '');
-                        const image = markerConfig.image ? `<div class="popup-image" style="background-image:url(${markerConfig.image})"></div>` : '';
-                        const popup = new mapboxgl.Popup({ offset: 25 })
-                            .setHTML(`<div class="popup-content">${image}<div class="popup-title"><a href="${url}">${markerConfig.title}</a></div></div>`);
-                        const marker = new mapboxgl.Marker()
-                            .setLngLat([markerConfig.position[1], markerConfig.position[0]])
-                            .setPopup(popup)
-                            .addTo(map);
+                map.on('zoom', () => {
+                    const zoom = map.getZoom();
+                    const newVisibleLayers = getVisibleLayers(mapConfig, zoom);
+                    for (let i = visibleLayers.length - 1; i >= 0; i--) {
+                        const layerConfig = visibleLayers[i];
+                        if (!newVisibleLayers.includes(layerConfig)) {
+                            visibleLayers.splice(i, 1);
+                            removeLayerFromMap(map, layerConfig);
+                        }
+                    }
+                    for (let i = 0; i < newVisibleLayers.length; i++) {
+                        const layerConfig = newVisibleLayers[i];
+                        if (!visibleLayers.includes(layerConfig)) {
+                            visibleLayers.push(layerConfig);
+                            addLayerToMap(map, layerConfig);
+                        }
+                    }
+                });
+                const markersOnHover = {};
+                for (const layerConfig of visibleLayers) {
+                    addLayerToMap(map, layerConfig);
+                    for (const markerConfig of layerConfig.markers) {
+                        const marker = markerConfig.$marker;
                         if (markerConfig.anchor && (!markerConfig.url || markerConfig.url === location.pathname)) {
                             markersOnHover[markerConfig.anchor] = marker;
                         }
-                    });
-                    for (const anchor in markersOnHover) {
-                        const marker = markersOnHover[anchor];
-                        const anchorElement = document.getElementById(anchor.substring(1));
-                        if (!anchorElement) continue;
-                        let element = anchorElement;
-                        while (element) {
-                            highlightMarker(element, marker);
-                            element = element.nextSibling;
-                            if (!element || anchorElement.tagName === element.tagName || markersOnHover[`#${element.id}`]) {
+                    }
+                }
+                for (const anchor in markersOnHover) {
+                    const marker = markersOnHover[anchor];
+                    const anchorElement = document.getElementById(anchor.substring(1));
+                    if (!anchorElement) continue;
+                    let element = anchorElement;
+                    while (element) {
+                        highlightMarker(element, marker);
+                        element = element.nextSibling;
+                        if (!element || anchorElement.tagName === element.tagName || markersOnHover[`#${element.id}`]) {
+                            break;
+                        }
+                        switch (anchorElement.tagName) {
+                            case 'H2':
+                                if (element.tagName === 'H1') element = null;
                                 break;
-                            }
-                            switch (anchorElement.tagName) {
-                                case 'H2':
-                                    if (element.tagName === 'H1') element = null;
-                                    break;
-                                case 'H3':
-                                    if (element.tagName === 'H2' || element.tagName === 'H1') element = null;
-                                    break;
-                                case 'H4':
-                                    if (element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
-                                    break;
-                                case 'H5':
-                                    if (element.tagName === 'H4' || element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
-                                    break;
-                                case 'H6':
-                                    if (element.tagName === 'H5' || element.tagName === 'H4' || element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
-                                    break;
-                            }
+                            case 'H3':
+                                if (element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                break;
+                            case 'H4':
+                                if (element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                break;
+                            case 'H5':
+                                if (element.tagName === 'H4' || element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                break;
+                            case 'H6':
+                                if (element.tagName === 'H5' || element.tagName === 'H4' || element.tagName === 'H3' || element.tagName === 'H2' || element.tagName === 'H1') element = null;
+                                break;
                         }
                     }
                 }
-            });
+            }
         };
 
         loadStylesheet('https://api.mapbox.com/mapbox-gl-js/v3.16.0/mapbox-gl.css');

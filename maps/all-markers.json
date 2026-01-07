@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /maps/all-markers.json
+---
+{{ site.data.all_markers | jsonify }}

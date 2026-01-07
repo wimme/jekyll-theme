@@ -473,30 +473,6 @@ h2 {
 	margin-top: 60px;
 }
 
-.map {
-	width: 100%;
-	height: 400px;
-}
-.map .mapboxgl-marker {
-	cursor: pointer;
-}
-.map .mapboxgl-marker.highlighted {
-	z-index: 10;
-}
-.map .popup-content {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
-}
-.map .popup-content .popup-image {
-	width: 100%;
-	min-width: 120px;
-	height: 100px;
-	background-size: cover;
-	background-position: center;
-}
-
-
 
 /**
  * -----------------------------------------------------------------------------
