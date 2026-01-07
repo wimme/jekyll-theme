@@ -26,12 +26,12 @@ module Jekyll
         {
           'minZoom' => 0,
           'maxZoom' => 5,
-          'markers' => '/maps/category-page-markers.json'
+          'markersUri' => '/maps/category-page-markers.json'
         },
         {
           'minZoom' => 5,
           'maxZoom' => 22,
-          'markers' => '/maps/all-markers.json'
+          'markersUri' => '/maps/all-markers.json'
         }
       ]
     end

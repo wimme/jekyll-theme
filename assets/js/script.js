@@ -500,13 +500,16 @@
                 visibleLayers.push({ markers: mapConfig.markers });
             }
             for (const layerConfig of visibleLayers) {
-                if (typeof layerConfig.markers === 'string') {
+                if (layerConfig.markersUri) {
                     const xhr = new XMLHttpRequest();
-                    xhr.open('GET', layerConfig.markers, false);
+                    xhr.open('GET', layerConfig.markersUri, false);
                     xhr.send(null);
                     if (xhr.status === 200) {
                         const markersData = JSON.parse(xhr.responseText);
                         layerConfig.markers = markersData;
+                    }
+                    else {
+                        layerConfig.markers = [];
                     }
                 }
             }
