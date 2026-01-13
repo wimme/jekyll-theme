@@ -445,10 +445,6 @@ h2 {
 	line-height: 60px;
 }
 
-.hero-home .hero-content {
-	width: calc(100% - 90px);
-}
-
 .hero-home .hero-title {
 	font-size: 45px;
 	line-height: 45px;
@@ -579,16 +575,15 @@ h2 {
 
 	.hero-content,
 	.hentry {
-		width: 370px;
+		width: 100%;
+		padding: 0 30px;
 	}
 
-}
-
-@media only screen and (max-width: 479px) {
-
-	.hero-content,
-	.hentry {
-		width: 260px;
+	blockquote,
+	.news-toc {
+		width: calc(100% + 60px);
+	    margin: 0 0 30px -30px;
+		padding: 30px;
 	}
 
 }
