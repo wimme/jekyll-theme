@@ -437,7 +437,7 @@
 
             if (headings.length > 0) {
                 const nestedToc = createNestedToc(headings);
-                mobileToc.appendChild(nestedToc);
+                mobileToc.querySelector('.news-toc-content').appendChild(nestedToc);
             }
             return;
         }

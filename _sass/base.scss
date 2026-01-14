@@ -48,14 +48,16 @@ a:hover {
 }
 
 blockquote,
-.news-toc {
+.news-toc,
+ul.cta {
 	width: calc(100% + 120px);
     margin: 0 0 30px -60px;
 	padding: 30px 60px;
 	background-color: #f6f6f6;
 }
 
-blockquote.quote {
+blockquote.quote,
+ul.cta {
 	position: relative;
 	padding: 0 0 0 45px;
 	color: #888;
@@ -67,7 +69,8 @@ blockquote.quote {
 	margin: 0 0 30px 0;
 }
 
-blockquote.quote:before {
+blockquote.quote:before,
+ul.cta li:before {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -75,6 +78,27 @@ blockquote.quote:before {
 	font-family: "Genericons";
 	font-size: 22px;
 	content: "\f106";
+}
+
+ul.cta li:before {
+	left: 10px;
+	padding: 10px 0;
+	content: "\f429";
+}
+ul.cta {
+	list-style: none;
+	padding: 0;
+}
+ul.cta li {
+	position: relative;
+	padding: 10px 0 10px 55px;
+	margin: 10px 0;
+	background-color: #f6f6f6;
+}
+ul.cta li:hover:before {
+	left: 20px;
+	-webkit-transition: left .2s;
+	transition: left .2s;
 }
 
 h1,

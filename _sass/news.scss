@@ -26,11 +26,23 @@
 }
 
 .news-toc {
+	position: relative;
+	padding-right: 10px;
+}
+.news-toc-content {
 	max-height: 150px;
 	overflow-y: auto;
 }
-.news-toc :last-child {
+.news-toc-content :last-child {
 	margin-bottom: 0;
+}
+.news-toc-title {
+	position: absolute;
+	top: -15px;
+	left: 30px;
+	background-color: #e4c05c;
+	color: #fff;
+	padding: 5px 10px;
 }
 
 .news-footer {

@@ -24,7 +24,10 @@ layout: base
   <div class="news-container">
     <div class="news-divider"></div>
     <div class="news-item hentry clear">
-      <div class="news-toc"></div>
+      <div class="news-toc">
+        <div class="news-toc-title">{{ site.wimme.toc_title | default: 'Contents' | escape }}</div>
+        <div class="news-toc-content"></div>
+      </div>
       <div class="news-content" itemprop="articleBody">
         {{ content }}
       </div>
