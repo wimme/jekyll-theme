@@ -589,17 +589,24 @@
                     for (const markerConfig of layerConfig.markers) {
                         const marker = markerConfig.$marker;
                         if (markerConfig.anchor && (!markerConfig.url || markerConfig.url === location.pathname)) {
-                            markersOnHover[markerConfig.anchor] = marker;
+                            var arr = markersOnHover[markerConfig.anchor];
+                            if (!arr) {
+                                arr = [];
+                                markersOnHover[markerConfig.anchor] = arr;
+                            }
+                            arr.push(marker);
                         }
                     }
                 }
                 for (const anchor in markersOnHover) {
-                    const marker = markersOnHover[anchor];
+                    const markers = markersOnHover[anchor];
                     const anchorElement = document.getElementById(anchor.substring(1));
                     if (!anchorElement) continue;
                     let element = anchorElement;
                     while (element) {
-                        highlightMarker(element, marker);
+                        for (const marker of markers) {
+                            highlightMarker(element, marker);
+                        }
                         element = element.nextSibling;
                         if (!element || anchorElement.tagName === element.tagName || markersOnHover[`#${element.id}`]) {
                             break;
